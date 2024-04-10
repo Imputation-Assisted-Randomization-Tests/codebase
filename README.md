@@ -4,12 +4,12 @@ Design-based causal inference, also known as randomization-based or finite-popul
 
 ## Repository Structure
 
-- `Code/` - Contains all scripts and code for the project.
-  - `Application/` - Application specific scripts[(Detail)](./Code/Application/README.md).
-  - `Simulation/` - Simulation scripts, tools[(Detail)](./Code/Simulation/README.md).
-- `Data/` - Raw data files used in analyses, script for data preprocessing[(Detail)](./Data/README.md).
-- `Manuscript/` - Source files for the manuscript, including LaTeX or Markdown files.
-- `Output/` - Results and outputs from computations[(Detail)](./Output/README.md).
+- `code/` - Contains all scripts and code for the project.
+  - `application/` - Application specific scripts[(Detail)](./Code/Application/README.md).
+  - `simulation/` - Simulation scripts, tools[(Detail)](./Code/Simulation/README.md).
+- `data/` - Raw data files used in analyses, script for data preprocessing[(Detail)](./Data/README.md).
+- `manuscript/` - Source files for the manuscript, including LaTeX or Markdown files.
+- `output/` - Results and outputs from computations[(Detail)](./Output/README.md).
 
 ## Setting Up Conda Environment
 

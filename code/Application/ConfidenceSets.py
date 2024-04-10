@@ -25,7 +25,7 @@ if len(sys.argv) != 2:
 array_index = int(sys.argv[1]) - 1 
 
 # Load the arrays from the .npz file
-arrays = np.load('../../Data/CleanedDataset.npz')
+arrays = np.load('../../data/Dataset.npz')
 
 # Accessing each array using its key
 Z = arrays['Z']
@@ -43,7 +43,7 @@ Y_adjusted = Y.copy()
 Y_adjusted[(M == 0) & (Z == 0)] += beta
 
 # Define the folder name
-folder_name = "../../Output/ConfidenceSets"
+folder_name = "../../output/ConfidenceSets"
 
 # Check if the folder does not exist
 if not os.path.exists(folder_name):

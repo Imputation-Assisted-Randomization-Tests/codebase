@@ -16,8 +16,8 @@ beta_coef = None
 task_id = 1
 
 # Set the default values
-max_iter = 1
-L = 2000
+max_iter = 3
+L = 10000
 
 def run(Nsize, filepath, Missing_lambda, strata_size = 10,small_size = True, model = 0, verbose=0):
 
@@ -26,22 +26,17 @@ def run(Nsize, filepath, Missing_lambda, strata_size = 10,small_size = True, mod
 
     X, Z, U, Y, M, S = DataGen.GenerateData()
 
-    if beta_coef == 0:
-        Iter = 5000
-    else:
-        Iter = 1   
-
     #Oracale imputer
     print("Oracle")
     Framework = RandomizationTest.RandomizationTest(N = Nsize)
-    reject, p_values= Framework.test(Z, X, M, Y,strata_size = strata_size, L=Iter, G = None,verbose=verbose)
+    reject, p_values= Framework.test(Z, X, M, Y,strata_size = strata_size, L=L, G = None,verbose=verbose)
     # Append p-values to corresponding lists
     values_oracle = [ *p_values, reject]
 
     #Median imputer
     print("Median")
     median_imputer = SimpleImputer(missing_values=np.nan, strategy='median')
-    reject, p_values = Framework.test_imputed(Z=Z, X=X,M=M, Y=Y,strata_size = strata_size,G=median_imputer,L=Iter, verbose=verbose)
+    reject, p_values = Framework.test_imputed(Z=Z, X=X,M=M, Y=Y,strata_size = strata_size,G=median_imputer,L=L, verbose=verbose)
     values_median = [ *p_values, reject ]
 
     #mask Y with M
@@ -51,21 +46,21 @@ def run(Nsize, filepath, Missing_lambda, strata_size = 10,small_size = True, mod
     #LR imputer
     print("LR")
     BayesianRidge = IterativeImputer(estimator = linear_model.BayesianRidge(),max_iter=max_iter)
-    reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=BayesianRidge,L=Iter, verbose=verbose )
+    reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=BayesianRidge,L=L, verbose=verbose )
     values_LR = [ *p_values, reject ]
 
     #XGBoost
     if small_size == True:
         print("Xgboost")
         XGBoost = IterativeImputer(estimator=xgb.XGBRegressor(n_jobs=1), max_iter=max_iter)
-        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=XGBoost,L=Iter, verbose=verbose)
+        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=XGBoost,L=L, verbose=verbose)
         values_xgboost = [ *p_values, reject ]
 
     #LightGBM
     if small_size == False:
         print("LightGBM")
         LightGBM = IterativeImputer(estimator=lgb.LGBMRegressor(n_jobs=1,verbosity=-1), max_iter=max_iter)
-        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=LightGBM,L=Iter,verbose=verbose ,covariate_adjustment=3)
+        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=LightGBM,L=L,verbose=verbose ,covariate_adjustment=3)
         values_lightgbm = [ *p_values, reject ]
 
     #Save the file in numpy format
@@ -112,8 +107,8 @@ if __name__ == '__main__':
     # 1000 size coef loop
     for coef in np.arange(0.0, 0.4, 0.05): 
         beta_coef = coef
-        run(1000, filepath="ResultMultiple/HPC_power_1000_model5",  Missing_lambda=lambda_values[1000].get(coef, None),model = 5, small_size=False)
+        run(1000, filepath="../../output/Simulation/HPC_power_1000_model5",  Missing_lambda=lambda_values[1000].get(coef, None),model = 5, small_size=False)
     # 50 size coef loop
     for coef in np.arange(0.0, 2.5, 0.5): 
         beta_coef = coef
-        run(50, filepath="ResultMultiple/HPC_power_50_model5", Missing_lambda=lambda_values[50].get(coef, None),model = 5, small_size=True)
+        run(50, filepath="../../output/Simulation/HPC_power_50_model5", Missing_lambda=lambda_values[50].get(coef, None),model = 5, small_size=True)

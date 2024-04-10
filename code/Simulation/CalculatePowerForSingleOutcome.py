@@ -24,16 +24,16 @@ def run_simulations_for_model(model, lambda_mapping, Nsize=-1, strata_size=10, s
     if small_size:
         Nsize = 50
         configs = [
-            {"filepath": f"../../Output/Simulation/HPC_power_{Nsize}_model{model}", "adjust": 0},
-            {"filepath": f"../../Output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_Xgboost", "adjust": 2},
-            {"filepath": f"../../Output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_LR", "adjust": 1}
+            {"filepath": f"../../output/Simulation/HPC_power_{Nsize}_model{model}", "adjust": 0},
+            {"filepath": f"../../output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_Xgboost", "adjust": 2},
+            {"filepath": f"../../output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_LR", "adjust": 1}
         ]
     else:
         Nsize = 1000
         configs = [
-            {"filepath": f"../../Output/Simulation/HPC_power_{Nsize}_model{model}", "adjust": 0},
-            {"filepath": f"../../Output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_LightGBM", "adjust": 3},
-            {"filepath": f"../../Output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_LR", "adjust": 1}
+            {"filepath": f"../../output/Simulation/HPC_power_{Nsize}_model{model}", "adjust": 0},
+            {"filepath": f"../../output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_LightGBM", "adjust": 3},
+            {"filepath": f"../../output/Simulation/HPC_power_{Nsize}_model{model}_adjusted_LR", "adjust": 1}
         ]
         
 

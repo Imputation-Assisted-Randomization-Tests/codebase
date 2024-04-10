@@ -7,7 +7,7 @@ from sklearn.impute import SimpleImputer
 import iArt
 
 # Load the arrays from the .npz file
-arrays = np.load('../../Data/CleanedDataset.npz')
+arrays = np.load('../../data/Dataset.npz')
 
 # Accessing each array using its key
 Z = arrays['Z']
@@ -16,7 +16,7 @@ Y = arrays['Y']
 S = arrays['S']
 
 # Run the iArt test
-file_path = "../../Output/p_values.txt"
+file_path = "../../output/p_values.txt"
 L = 10000
 verbose = 1
 random_state = 0

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 results_dir = 'ConfidenceSets'  # Directory containing the results
 
 import os
-os.chdir('../../Output')
+os.chdir('../../output')
 
 files = os.listdir(results_dir)
 
