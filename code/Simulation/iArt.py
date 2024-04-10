@@ -342,7 +342,7 @@ def transformX(X, threshold=0.1, verbose=True):
     
     return X
 
-def test(*,Z, X, Y, G='linear', S=None,L = 10000,threshholdForX = 0.2, mode = 'strata',verbose = False, covariate_adjustment = 0, random_state=None, alternative = "greater", alpha = 0.05):
+def test(*,Z, X, Y, G='iterative+linear', S=None,L = 10000,thresholdForCovarianceImputation = 0.2, mode = 'strata',verbose = False, covariate_adjustment = 0, random_state=None, alternative = "greater", alpha = 0.05):
     """Imputation-Assisted Randomization Tests (iArt) for testing 
     the null hypothesis that the treatment has no effect on the outcome.
 
@@ -357,10 +357,10 @@ def test(*,Z, X, Y, G='linear', S=None,L = 10000,threshholdForX = 0.2, mode = 's
     S : array_like, default: None
         S is the array of observed strata indicators
         
-    threshholdForX : float, default: 0.1
-        The threshhold for missing outcome to be imputed in advance in covariate X
+    thresholdForCovarianceImputation : float, default: 0.1
+        The threshhold for missing outcome to be imputed in advance in covariance
 
-    G : str or function, default: 'linear'
+    G : str or function, default: 'iterative+linear'
         A string for the eight available choice or a function that takes 
         (Z, M, Y_k) as input and returns the imputed complete values 
 
@@ -375,7 +375,7 @@ def test(*,Z, X, Y, G='linear', S=None,L = 10000,threshholdForX = 0.2, mode = 's
 
     covarite_adjustment : int, default: 0
         if 0, covariate adjustment is not used
-        if 1, ridge covariate adjustment is used
+        if 1, linear covariate adjustment is used
         if 2, xgboost covariate adjustment is used
         if 3, lightgbm covariate adjustment is used
 
@@ -405,7 +405,7 @@ def test(*,Z, X, Y, G='linear', S=None,L = 10000,threshholdForX = 0.2, mode = 's
 
     # preprocess the variable
     Z, X, Y, S, M = preprocess(Z, X, Y, S)
-    X = transformX(X,threshholdForX,verbose)
+    X = transformX(X,thresholdForCovarianceImputation,verbose)
 
     # Check the validity of the input parameters
     check_param(Z=Z, X=X, Y=Y, S=S, G=G, L=L, mode=mode, verbose=verbose, covariate_adjustment=covariate_adjustment, alpha=alpha, alternative=alternative, random_state=random_state)
