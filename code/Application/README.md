@@ -58,4 +58,4 @@ The `confidence_sets.txt` file will be created in the `Output` folder.
 
 ## Note on Performance
 
-The scripts are designed to be run in parallel on a high-performance computing cluster. The confidence sets calculations, in particular, are parallelized across 2000 cores. Running these scripts without such parallelization will result in significantly longer execution times.
+The scripts are designed to be run in parallel on a high-performance computing cluster. The confidence sets calculations, in particular, are parallelized across 1001 cores. Running these scripts without such parallelization will result in significantly longer execution times.
