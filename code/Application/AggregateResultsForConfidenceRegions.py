@@ -3,7 +3,7 @@ import os
 import re  # Import the regex module
 import matplotlib.pyplot as plt
 
-results_dir = 'ConfidenceSets'  # Directory containing the results
+results_dir = 'ConfidenceRegions'  # Directory containing the results
 
 import os
 os.chdir('../../output')
@@ -44,9 +44,9 @@ for imputer_type, results in results_by_imputer.items():
     confidence_set = np.sort(confidence_set)
     
     # print and write the confidence set to a file
-    print(f"One-way confidence set for beta using {imputer_type} imputer:", confidence_set)
-    with open('confidence_sets.txt', 'a') as file:
-        file.write(f"One-way confidence set for beta using {imputer_type} imputer:\n")
+    print(f"One-way confidence region for beta using {imputer_type} imputer:", confidence_set)
+    with open('confidence_regions.txt', 'a') as file:
+        file.write(f"One-way confidence region for beta using {imputer_type} imputer:\n")
         file.write(np.array2string(confidence_set, separator=', '))
         file.write('\n\n')
 

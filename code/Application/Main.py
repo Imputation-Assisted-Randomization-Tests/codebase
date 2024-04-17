@@ -21,29 +21,28 @@ file_path = "../../output/p_values.txt"
 L = 10000
 verbose = 1
 random_state = 0
-thresholdForCovarianceImputation = 0.0
 
 # Write the results with one-sided test
 with open(file_path, 'a') as file:
     file.write("imputation-assisted randomization test\n")
-result = iArt.test(Z=Z, X=X, Y=Y, S=S,L=L,G= 'median', verbose=verbose,thresholdForCovarianceImputation = thresholdForCovarianceImputation,mode = 'cluster',random_state=random_state)
+result = iArt.test(Z=Z, X=X, Y=Y, S=S,L=L,G= 'median', verbose=verbose,threshold_covariate_median_imputation = 0.0,randomization_design = 'cluster',random_state=random_state)
 with open(file_path, 'a') as file:
     file.write("Method 1 (Median Imputation): " + str(result) + '\n')
 
 Algo1_Linear = IterativeImputer(estimator=linear_model.BayesianRidge(), max_iter=3)
-result = iArt.test(G=Algo1_Linear,Z=Z, X=X, Y=Y, S=S,L=L, verbose = verbose,mode = 'cluster',thresholdForCovarianceImputation = thresholdForCovarianceImputation,random_state=random_state)
+result = iArt.test(G=Algo1_Linear,Z=Z, X=X, Y=Y, S=S,L=L, verbose = verbose,randomization_design = 'cluster',threshold_covariate_median_imputation = 0.0,random_state=random_state)
 with open(file_path, 'a') as file:
     file.write("Method 2 (Algo 1 - Linear): " + str(result) + '\n')
 
-result = iArt.test(Z=Z, X=X, Y=Y, S=S,L=L, verbose=verbose,mode = 'cluster', thresholdForCovarianceImputation = thresholdForCovarianceImputation,covariate_adjustment=1,random_state=random_state)
+result = iArt.test(Z=Z, X=X, Y=Y, S=S,L=L, verbose=verbose,randomization_design = 'cluster', threshold_covariate_median_imputation = 0.0,covariate_adjustment='linear',random_state=random_state)
 with open(file_path, 'a') as file:
     file.write("Method 3 (Algo 1 - Linear): " + str(result) + '\n')
 
 Algo1_Boosting = IterativeImputer(estimator=lgb.LGBMRegressor(verbosity=-1), max_iter=3)
-result = iArt.test(G=Algo1_Boosting,Z=Z, X=X, Y=Y,S=S,L=L,thresholdForCovarianceImputation = thresholdForCovarianceImputation, verbose=verbose,mode = 'cluster',random_state=random_state)
+result = iArt.test(G=Algo1_Boosting,Z=Z, X=X, Y=Y,S=S,L=L,threshold_covariate_median_imputation = 0.0, verbose=verbose,randomization_design = 'cluster',random_state=random_state)
 with open(file_path, 'a') as file:
     file.write("Method 4 (Algo 1 - Boosting): " + str(result) + '\n')
 
-result = iArt.test(G=Algo1_Boosting,Z=Z, X=X, Y=Y,S=S,L=L,thresholdForCovarianceImputation = thresholdForCovarianceImputation, verbose=verbose,mode = 'cluster', covariate_adjustment=3,random_state=random_state)
+result = iArt.test(G=Algo1_Boosting,Z=Z, X=X, Y=Y,S=S,L=L,threshold_covariate_median_imputation = 0.0, verbose=verbose,randomization_design = 'cluster', covariate_adjustment='lightgbm',random_state=random_state)
 with open(file_path, 'a') as file:
     file.write("Method 5 (Algo 2 - Boosting): " + str(result) + '\n')

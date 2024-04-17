@@ -96,21 +96,21 @@ def run_simulation(*,Nsize, filepath, adjust, Missing_lambda,beta_coef, strata_s
     if adjust == 1:
         print("LR")
         BayesianRidge = IterativeImputer(estimator = linear_model.BayesianRidge(),max_iter=max_iter)
-        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=BayesianRidge,L=L, covariate_adjustment=adjust)
+        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=BayesianRidge,L=L, covariate_adjustment='linear')
         values_LR = [ *p_values, reject ]
 
     #XGBoost
     if adjust == 2:
         print("Xgboost")
         XGBoost = IterativeImputer(estimator=xgb.XGBRegressor(), max_iter=max_iter)
-        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=XGBoost,L=L, covariate_adjustment=adjust)
+        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=XGBoost,L=L, covariate_adjustment='xgboost')
         values_xgboost = [ *p_values, reject ]
 
     if adjust == 3:
         #LightGBM
         print("LightGBM")
         LightGBM = IterativeImputer(estimator=lgb.LGBMRegressor(verbosity=-1), max_iter=max_iter)
-        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=LightGBM,L=L, covariate_adjustment=adjust)
+        reject, p_values = iArt.test(Z=Z, X=X, Y=Y,G=LightGBM,L=L, covariate_adjustment='lightgbm')
         values_lightgbm = [ *p_values, reject ]
 
     #Save the file in numpy format
