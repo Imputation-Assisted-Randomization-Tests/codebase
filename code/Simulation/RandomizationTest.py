@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 from statsmodels.stats.multitest import multipletests
 from sklearn.base import clone
+from scipy.stats import rankdata
+
 
 class RandomizationTest:
     #load data
@@ -67,25 +69,9 @@ class RandomizationTest:
 
     def T(self,z,y):
 
-        #the Wilcoxon rank sum test
-        n = len(z)
-        t = 0
-        #O(N^2) version
-        """
-        for n in range(N):
-            rank = sum(1 for n_prime in range(N) if Y[n] >= Y[n_prime])
-            T += Z[n] * rank
-        """
+        Y_rank = rankdata(y)
+        t = np.sum(Y_rank[z == 1])
 
-        #O(N*Log(N)) version
-        my_list = []
-        for i in range(n):
-            my_list.append((z[i],y[i]))
-        sorted_list = sorted(my_list, key=lambda x: x[1])
-
-        #Calculate
-        for i in range(n):
-            t += sorted_list[i][0] * (i + 1)
         
         return t
 

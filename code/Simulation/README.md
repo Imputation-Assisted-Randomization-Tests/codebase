@@ -4,8 +4,7 @@ This document provides instructions on how to run the Python scripts in the `You
 
 ## Directory Structure
 
-- `CalculatePowerForMultipleOutcome.py`: Main script to run the analysis and compute p-values for multiple outcomes.
-- `CalculatePowerForSingleOutcome.py`: Main script to run the analysis and compute p-values for single outcomes.
+- `RunSimulation.py`: Main script to run the simulation and compute p-values.
 - `iArt.py`: Imputation-Assisted Randomization Tests (iArt).
 - `MultipleOutcomeModelGenerator.py`: Generates Model 5 for multiple outcomes.
 - `RandomizationTest.py`: Script for conducting Oracle randomization tests.
@@ -18,8 +17,7 @@ This document provides instructions on how to run the Python scripts in the `You
 
 To run the main analysis for multiple outcomes or single outcomes, navigate to the current folder and execute the following command:
 ```
-python CalculatePowerForSingleOutcome.py <job_array_index>
-python CalculatePowerForMultipleOutcome.py <job_array_index>
+python RunSimulation.py <job_array_index>
 ```
 This will generate a folder `Simulation` in the `Output` folder. Here, p-values for various methods including Oracle, Median Imputation, Algo 1 (Linear), Algo 1 (Boosting), Algo 2 (Linear), and Algo 2 (Boosting) for different models will be stored under separate folders for different models.
 

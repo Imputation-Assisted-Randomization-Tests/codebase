@@ -13,6 +13,8 @@ import xgboost as xgb
 from sklearn.impute import SimpleImputer
 import time
 import warnings
+from scipy.stats import rankdata
+
 
 def holm_bonferroni(p_values, alpha = 0.05):
     """
@@ -103,15 +105,8 @@ def T(z,y):
     Calculate the Wilcoxon rank sum test statistics
     """
 
-    #the Wilcoxon rank sum test
-    n = len(z)
-    t = 0
-    my_list = []
-    for i in range(n):
-        my_list.append((z[i],y[i]))
-    sorted_list = sorted(my_list, key=lambda x: x[1])
-    for i in range(n):
-        t += sorted_list[i][0] * (i + 1)
+    Y_rank = rankdata(y)
+    t = np.sum(Y_rank[z == 1])
 
     return t
 
@@ -131,7 +126,7 @@ def split(y, z, M):
 
     return y_missing, y_non_missing, z_missing, z_non_missing
 
-def getT(y, z, lenY, M):
+def getT(y, z, lenY, M, rankAdjust = False):
     """
     Separately calculate T for missing and non-missing parts of each outcome using Wilcoxon rank sum test
     Return the sum of T values for all outcomes
@@ -141,13 +136,22 @@ def getT(y, z, lenY, M):
     for i in range(lenY):
         # Split the data into missing and non-missing parts using the split function
         y_missing, y_non_missing, z_missing, z_non_missing = split(y[:,i], z, M[:,i])
-        
+
+        if rankAdjust:
+            #get the variance of the non-missing part
+            var_non_missing = np.var(y_non_missing)
+
+            # Add this variance of noise to the missing part
+            y_missing = y_missing + np.random.normal(0, np.sqrt(var_non_missing), len(y_missing))
+            
         # Calculate T for missing and non-missing parts
-        t_missing = T(z_missing, y_missing.reshape(-1,))
-        t_non_missing = T(z_non_missing, y_non_missing.reshape(-1,))
+        t_missing = T(z_missing.reshape(-1,), y_missing.reshape(-1,))
+        t_non_missing = T(z_non_missing.reshape(-1,), y_non_missing.reshape(-1,))
 
         # Sum the T values for both parts
-        t_combined = t_missing + t_non_missing
+        t_combined =  t_missing + t_non_missing
+
+        #t_combined = T(z.reshape(-1,), y[:,i].reshape(-1,))
         t.append(t_combined)
 
     return np.array(t)
@@ -288,15 +292,15 @@ def choosemodel(G):
         G = G.lower()
         warnings.filterwarnings('ignore', category=ConvergenceWarning)
         if G == 'xgboost':
-            G = IterativeImputer(estimator = xgb.XGBRegressor(), max_iter = 1)
+            G = IterativeImputer(estimator = xgb.XGBRegressor(), max_iter = 3)
         if G == 'linear':
-            G = IterativeImputer(estimator = linear_model.BayesianRidge(), max_iter = 1,verbose=0)
+            G = IterativeImputer(estimator = linear_model.BayesianRidge(), max_iter = 3,verbose=0)
         if G == 'median':
             G = SimpleImputer(missing_values=np.nan, strategy='median')
         if G == 'mean':
             G = SimpleImputer(missing_values=np.nan, strategy='mean')
         if G == 'lightgbm':
-            G = IterativeImputer(estimator = lgb.LGBMRegressor(verbosity = -1), max_iter = 1)
+            G = IterativeImputer(estimator = lgb.LGBMRegressor(verbosity = -1), max_iter = 3)
         if G == 'iterative+linear':
             G = IterativeImputer(estimator = linear_model.BayesianRidge())
         if G == 'iterative+lightgbm':
@@ -346,7 +350,7 @@ def transformX(X, threshold=0.1, verbose=True):
     
     return X
 
-def test(*,Z, X, Y, G='iterative+linear', S=None,L = 10000,threshold_covariate_median_imputation = 0.1, randomization_design = 'strata',verbose = False, covariate_adjustment = 0, random_state=None, alternative = "greater", alpha = 0.05):
+def test(*,Z, X, Y, G='iterative+linear', S=None,L = 10000,threshold_covariate_median_imputation = 0.1, randomization_design = 'strata',verbose = False, covariate_adjustment = 0, random_state=None, alternative = "greater", alpha = 0.05, rankAdjust = False):
     """Imputation-Assisted Randomization Tests (iArt) for testing 
     the null hypothesis that the treatment has no effect on the outcome.
 
@@ -422,7 +426,7 @@ def test(*,Z, X, Y, G='iterative+linear', S=None,L = 10000,threshold_covariate_m
 
     # impuate the missing values to get the observed test statistics in part 1
     Y_pred = getY(clone(G_model), Z, X, Y, covariate_adjustment)
-    t_obs = getT(Y_pred, Z, Y.shape[1], M)
+    t_obs = getT(Y_pred, Z, Y.shape[1], M, rankAdjust = rankAdjust)
     
     if verbose:
         if isinstance(G, str):
@@ -465,7 +469,7 @@ def test(*,Z, X, Y, G='iterative+linear', S=None,L = 10000,threshold_covariate_m
         Y_pred = getY(clone(G_model), Z_sim, X, Y, covariate_adjustment)
         
         # get the test statistics 
-        t_sim[l] = getT(Y_pred, Z_sim, Y.shape[1], M)
+        t_sim[l] = getT(Y_pred, Z_sim, Y.shape[1], M, rankAdjust=rankAdjust)
 
         if verbose:
             print(f"re-prediction iteration {l+1}/{L} completed. Test statistics[{l}]: {t_sim[l]}")
