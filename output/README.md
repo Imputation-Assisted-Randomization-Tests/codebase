@@ -8,6 +8,10 @@ tar xvzf <filename>.tar.gz
 
 ## Directory Structure
 
-- `Simulation.tar.gz`: Compressed file containing all simulation data.
-- `p_values(final).txt`:  Contains p-values for the application.
-- `ConfidenceSets.tar.gz`: Compressed file containing confidence sets.
+- `Simulation.tar.gz`: Folder containing all 50% missing rate simulation data.
+- `Simulation0.25Missing.tar.gz`: Folder containing all 25% missing rate simulation data.
+- `ConfidenceRegions.tar.gz`: Folder containing confidence regions.
+- `Simulation.tar.gz`: Compressed file containing all 50% missing rate simulation data.
+- `Simulation0.25Missing.tar.gz`: Compressed file containing all 25% missing rate simulation data.
+- `ConfidenceRegions.tar.gz`: Compressed file containing confidence regions.
+- `p_values(final).txt`:  Contains p-values of different methods for the WFHS dataset.
