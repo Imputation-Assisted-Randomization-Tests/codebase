@@ -8,7 +8,7 @@ This document provides instructions on how to run the Python scripts in the `You
 - `iArt.py`: Imputation-Assisted Randomization Tests (iArt).
 - `MultipleOutcomeModelGenerator.py`: Generates Model 5 for multiple outcomes.
 - `RandomizationTest.py`: Script for conducting Oracle randomization tests.
-- `SingleOutcomeModelGenerator.py`: Generates Models 1, 2, 3, 4, and 6 for single outcomes.
+- `SingleOutcomeModelGenerator.py`: Generates Models 1, 2, 3, 4, and 6 for a single outcome.
 
 
 ## Running the Scripts
@@ -19,7 +19,7 @@ To run the main analysis for multiple outcomes or single outcomes, navigate to t
 ```
 python RunSimulation.py <job_array_index>
 ```
-This will generate a folder `Simulation` in the `Output` folder. Here, p-values for various methods including Oracle, Median Imputation, Algo 1 (Linear), Algo 1 (Boosting), Algo 2 (Linear), and Algo 2 (Boosting) for different models will be stored under separate folders for different models.
+This will generate a folder `Simulation` in the `Output` folder. Here, p-values for various methods, including Oracle, Median Imputation, Algo 1 (Linear), Algo 1 (Boosting), Algo 2 (Linear), and Algo 2 (Boosting) for different models will be stored under separate folders for different models.
 
 
 #### Output Files
