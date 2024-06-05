@@ -215,10 +215,6 @@ class DataGenerator:
         lambda1 = np.percentile(M_lamda[:,0], 100 - self.MaskRate*100)
         lambda2 = np.percentile(M_lamda[:,1], 100 - self.MaskRate*100)
         lambda3 = np.percentile(M_lamda[:,2], 100 - self.MaskRate*100)
-
-        print("lambda1", lambda1)
-        print("lambda2", lambda2)
-        print("lambda3", lambda3)
           
       for i in range(n):
           values = np.zeros(3)

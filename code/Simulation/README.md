@@ -24,7 +24,7 @@ This will generate a folder `Simulation` in the `Output` folder. Here, p-values 
 
 #### Output Files
 
-Results will be saved in the `Output/Simulation` directory. Each model, except Model 5, will have six subdirectories HPC_power_50_model`i`, HPC_power_50_model`i`_adjusted_Xgboost, HPC_power_50_model`i`_adjusted_LR, HPC_power_1000_model`i`, HPC_power_1000_model`i`_adjusted_LightGBM, and HPC_power_1000_model`i`_adjusted_LR representing the method of covariate adjustment. Within each subdirectory, folders for different beta values contain the final p-values. Each p-value file includes:
+Results will be saved in the `Output/Simulation` directory. Each model, except Model 5, will have six subdirectories HPC_power_50_model`i`, HPC_power_50_model`i`_adjusted_Xgboost, HPC_power_50_model`i`_adjusted_LR, HPC_power_1000_model`i`, HPC_power_1000_model`i`_adjusted_LightGBM, and HPC_power_1000_model`i`_adjusted_LR, HPC_power_1000_model`i`_adjusted_Median representing the method of covariate adjustment. Within each subdirectory, folders for different beta values contain the final p-values. Each p-value file includes:
 
 - **Reject**: This boolean indicates whether the null hypothesis for the beta value was rejected.
 - **P-Value**: This is the probability of observing the given result, or something more extreme, under the null hypothesis.

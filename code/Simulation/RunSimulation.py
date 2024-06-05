@@ -18,7 +18,7 @@ task_id = 1
 
 # Set the default values
 max_iter = 3
-L = 10000
+Iter = 10000
 
 def run_simulations_for_model(model, lambda_mapping, Nsize=-1,  small_size=False, multiple=False):
     # Configuration based on the size of the dataset
@@ -39,24 +39,6 @@ def run_simulations_for_model(model, lambda_mapping, Nsize=-1,  small_size=False
             run_simulation(Nsize=Nsize, filepath = config['filepath'], beta_coef = coef, Missing_lambda = Missing_lambda, small_size = small_size, model = model, multiple=multiple)
     
 def run_simulation(*,Nsize, filepath,beta_coef,  Missing_lambda, model = 0,  small_size = True, multiple = False, verbose = False, adjust = True):
-    
-    # print all the parameters
-    print("Nsize:",Nsize)
-    print("filepath:",filepath)
-    print("beta_coef:",beta_coef)
-    print("Missing_lambda:",Missing_lambda)
-    print("model:",model)
-    print("small_size:",small_size)
-    print("multiple:",multiple)
-    print("verbose:",verbose)
-
-
-    if beta_coef == 0:
-        Iter = 10000
-    else:
-        Iter = 1000
-
-    Missing_lambda = None
 
     # Simulate data  
     if multiple == False:
@@ -153,26 +135,13 @@ if __name__ == '__main__':
         print("Please add the job number like this\nEx.python Power.py 1")
         exit()
 
-    # Model 5
-    beta_to_lambda = {
-        0.25: 0,
-        0.30: 0,
-    }
-    run_simulations_for_model(5, beta_to_lambda, small_size=False, multiple=True)
-
-    beta_to_lambda = {
-        1.5: 0,
-        2.0: 0,
-    }
-    run_simulations_for_model(5, beta_to_lambda, small_size=True, multiple=True)
-
     # Model 1
     beta_to_lambda = {0.0: 2.159275141001102, 0.07: 2.165387531267955, 0.14: 2.285935405246937, 0.21: 2.258923945496463, 0.28: 2.2980720651301794, 0.35: 2.3679216299985613}
     run_simulations_for_model(1, beta_to_lambda, small_size=False)
 
     beta_to_lambda = {0.0: 2.1577587265653126, 0.25: 2.2946233479956843, 0.5: 2.42339283727788, 0.75: 2.544154767644711, 1.0: 2.669166349074493, 1.25: 2.792645016605368}
     run_simulations_for_model(1, beta_to_lambda, small_size=True)
-
+    
     # Model 2
     beta_to_lambda = {0.0: 14.376830203817725, 0.16: 14.492781397662549, 0.32: 14.636259203432914, 0.48: 14.790662640235277, 0.64: 14.902477227186191, 0.8: 14.995429287214796}
     run_simulations_for_model(2, beta_to_lambda, small_size=False)
@@ -196,14 +165,14 @@ if __name__ == '__main__':
 
     # Model 5
     beta_to_lambda = {
-        0.25: 0,
-        0.30: 0,
+        0.2: [6.168944326937101, 1.832647998037303, 3.8531272843861935],
+        0.25: [6.3198644628683045, 1.8323638672360674, 3.974802253118422],
     }
     run_simulations_for_model(5, beta_to_lambda, small_size=False, multiple=True)
 
     beta_to_lambda = {
-        1.5: 0,
-        2.0: 0,
+        1.5: [6.758024883936034, 2.5734038938868213, 4.627926502940916],
+        2.0: [6.85920934129434, 2.2378857445577296, 4.82931215438915],
     }
     run_simulations_for_model(5, beta_to_lambda, small_size=True, multiple=True)
     
