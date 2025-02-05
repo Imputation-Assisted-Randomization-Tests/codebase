@@ -23,8 +23,7 @@ To preprocess the data, follow these steps:
 ```bash
 python ConfidenceSets.py <job_array_index>
 ```
-4. 
-The script will process the raw data and extract the following components:
+4. The script will process the raw data and extract the following components:
 
 - `Z`: Treatment variable.
 - `X`: Covariates.

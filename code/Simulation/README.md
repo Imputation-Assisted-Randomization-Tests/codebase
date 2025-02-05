@@ -6,9 +6,13 @@ This document provides instructions on how to run the Python scripts in the `You
 
 - `RunSimulation.py`: Main script to run the simulation and compute p-values.
 - `iArt.py`: Imputation-Assisted Randomization Tests (iArt).
-- `MultipleOutcomeModelGenerator.py`: Generates Model 5 in the multiple outcomes case.
+- `iArt_survival.py`: Imputation-Assisted Randomization Tests for survival analysis (iArt_survival).
+- `MultipleOutcomeDataGenerator.py`: Generates Model 5(multiple outcomes case) simulation data.
 - `RandomizationTest.py`: Script for conducting Oracle randomization tests.
-- `SingleOutcomeModelGenerator.py`: Generates Models 1, 2, 3, 4, and 6 in the single outcome case.
+- `SingleOutcomeDataGenerator.py`: Generates Models 1, 2, 3, 4, and 6(single outcome case) simulation data.
+- `SurvivalDataGenerator.py`: Generates survival analysis simulation data.
+- `RunSimulationSurvival.py`: Addition script to run the simulation on newly added survival analysis simulation
+
 
 ## Running the Scripts
 

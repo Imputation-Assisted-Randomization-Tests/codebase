@@ -15,3 +15,5 @@ tar xvzf <filename>.tar.gz
 - `Simulation0.25Missing.tar.gz`: Compressed file containing all 25% missing rate simulation data.
 - `ConfidenceRegions.tar.gz`: Compressed file containing confidence regions.
 - `p_values(final).txt`:  Contains p-values of different methods for the WFHS dataset.
+- `Survival.tar.gz`: Compressed file containing all survival analysis simulation data.
+

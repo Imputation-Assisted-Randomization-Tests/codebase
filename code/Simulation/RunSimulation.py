@@ -3,8 +3,8 @@ import numpy as np
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn import linear_model
-import SingleOutcomeModelGenerator as Generator
-import MultipleOutcomeModelGenerator as GeneratorMutiple
+import SingleOutcomeDataGenerator as Generator
+import MultipleOutcomeDataGenerator as GeneratorMutiple
 import RandomizationTest as RandomizationTest
 from sklearn.impute import SimpleImputer
 import os
