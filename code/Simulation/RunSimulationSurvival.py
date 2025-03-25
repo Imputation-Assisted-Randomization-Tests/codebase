@@ -119,18 +119,18 @@ if __name__ == '__main__':
 
     for coef in np.arange(0.0,0.42,0.07):
         beta_coef = coef
-        run(1000, filepath = "Result/HPC_power_1000_survival", small_size=False)
+        run(1000, filepath = "..output/Survival/HPC_power_1000_survival", small_size=False)
 
     for coef in np.arange(0,1.5,0.25):
         beta_coef = coef
-        run(50, filepath = "Result/HPC_power_50_survival",small_size=True)
+        run(50, filepath = "..output/Survival/HPC_power_50_survival",small_size=True)
     
     for coef in np.arange(0.0,0.24,0.04):
         beta_coef = coef
-        run(2000, filepath = "Result/HPC_power_2000_survival", small_size=False)
+        run(2000, filepath = "..output/Survival/HPC_power_2000_survival", small_size=False)
 
     for coef in np.arange(0,0.9,0.15):
         beta_coef = coef
-        run(200, filepath = "Result/HPC_power_200_survival",small_size=True)
+        run(200, filepath = "..output/Survival/HPC_power_200_survival",small_size=True)
 
 
