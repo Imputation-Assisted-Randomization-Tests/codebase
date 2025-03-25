@@ -108,7 +108,7 @@ class DataGenerator:
     sum3 = np.zeros(self.N)
     for p in range(1,6):
       sum3 += X[:,p-1]
-    #sum3 = (1.0 / np.sqrt(5)) * sum3
+    sum3 = (1.0 / np.sqrt(5)) * sum3
 
     #def sum4():
     sum4 = np.zeros(self.N)
@@ -200,11 +200,11 @@ class DataGenerator:
                 sum4 += X[i,p-1] * X[i,p_2-1] * X[i,p_3-1]
           sum4 = (1.0  / np.sqrt(5 * 5 * 5)) * sum4
 
-          M_lamda[i][0] = (1.0  / np.sqrt(5))* logistic.cdf(X[i, :]).sum() + sum1 + 5 * logistic.cdf(Y[i, 0] )
+          M_lamda[i][0] = (1.0  / np.sqrt(5))* logistic.cdf(X[i, :]).sum() + sum1 + 5 * logistic.cdf(Y[i, 0] + U[i])
 
-          M_lamda[i][1] = (1.0  / np.sqrt(5))*((X[i, :]**3).sum() + sum2  + 2.5 * logistic.cdf(Y[i, 0]) +2.5 * logistic.cdf(Y[i, 1]))
+          M_lamda[i][1] = (1.0  / np.sqrt(5))*((X[i, :]**3).sum() + sum2  + 2.5 * logistic.cdf(Y[i, 0]) +2.5 * logistic.cdf(Y[i, 1]) + logistic.cdf(1 - U[i]) )
 
-          M_lamda[i][2] = (sum3 + sum4 + 5/3 * logistic.cdf(Y[i, 0]) +  5/3 * logistic.cdf(Y[i, 1]) + 5/3 * logistic.cdf(Y[i, 2]) )
+          M_lamda[i][2] = (sum3 + sum4 + 5/3 * logistic.cdf(Y[i, 0]) +  5/3 * logistic.cdf(Y[i, 1]) + 5/3 * logistic.cdf(Y[i, 2]) + np.sin(U[i] ** 2 ) )
 
       # calculate 1 - Maskrate percentile
       if self.Missing_lambda:
@@ -242,9 +242,9 @@ class DataGenerator:
                 sum4 += X[i,p-1] * X[i,p_2-1] * X[i,p_3-1]
           sum4 = (1.0  / np.sqrt(5 * 5 * 5)) * sum4
 
-          values[0] = (1.0  / np.sqrt(5))* logistic.cdf(X[i, :]).sum() + sum1 + 5 * logistic.cdf(Y[i, 0])
-          values[1] = (1.0  / np.sqrt(5))*((X[i, :]**3).sum() + sum2  + 5/2 * logistic.cdf(Y[i, 0]) + 5/2 * logistic.cdf(Y[i, 1]))
-          values[2] = (sum3 + sum4 + 5/3 * logistic.cdf(Y[i, 0]) +  5/3 * logistic.cdf(Y[i, 1]) + 5/3 * logistic.cdf(Y[i, 2]) )
+          values[0] = (1.0  / np.sqrt(5))* logistic.cdf(X[i, :]).sum() + sum1 + 5 * logistic.cdf(Y[i, 0] + U[i])
+          values[1] = (1.0  / np.sqrt(5))*((X[i, :]**3).sum() + sum2  + 5/2 * logistic.cdf(Y[i, 0]) + 5/2 * logistic.cdf(Y[i, 1]) + logistic.cdf(1 - U[i]) )
+          values[2] = (sum3 + sum4 + 5/3 * logistic.cdf(Y[i, 0]) +  5/3 * logistic.cdf(Y[i, 1]) + 5/3 * logistic.cdf(Y[i, 2]) + np.sin(U[i] ** 2 ) )
 
           M[i][0] = (values[0] > lambda1)
           M[i][1] =  (values[1] > lambda2)
