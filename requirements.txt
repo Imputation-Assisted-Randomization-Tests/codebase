@@ -7,4 +7,3 @@ xgboost == 1.7.4
 statsmodels == 0.13.5
 lightgbm == 3.3.1
 lifelines
-os 

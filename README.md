@@ -5,25 +5,31 @@ Design-based causal inference, also known as randomization-based or finite-popul
 ## Repository Structure
 
 - `code/` - Contains all scripts and code for the project.
-  - `application/` - Application specific scripts[(Detail)](./Code/Application/README.md).
-  - `simulation/` - Simulation scripts, tools[(Detail)](./Code/Simulation/README.md).
-- `data/` - Raw data files used in analyses, script for data preprocessing[(Detail)](./Data/README.md).
+  - `application/` - Application specific scripts[(Detail)](./code/Application/README.md).
+  - `simulation/` - Simulation scripts, tools[(Detail)](./code/Simulation/README.md).
+- `data/` - Raw data files used in analyses, script for data preprocessing[(Detail)](./data/README.md).
 - `manuscript/` - Source files for the manuscript, including LaTeX or Markdown files.
-- `output/` - Results and outputs from computations[(Detail)](./Output/README.md).
+- `output/` - Results and outputs from computations[(Detail)](./output/README.md).
 
 ## Setting Up Conda Environment
 
 Navigate to the main directory of the codebase to start this.
 
 ```bash
-# Step 1: Create the Conda Environment
-conda create --name iart_env python=3.8
+# Step 1: Create the Python Virtual Environment
+python -m venv iart_env
 
 # Step 2: Activate the Environment
-conda activate iart_env
+# For Unix or MacOS:
+source iart_env/bin/activate
 
-# Step 3: Install Requirements Using Pip
+# For Windows:
+.\iart_env\Scripts\activate
+
+# Step 3: Upgrade pip (optional but recommended)
+pip install --upgrade pip
+
+# Step 4: Install Requirements Using pip
 pip install -r requirements.txt
-
 ```
 

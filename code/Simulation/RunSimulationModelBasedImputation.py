@@ -20,8 +20,6 @@ task_id = 1
 max_iter = 3
 Iter = 10000
 
-
-
 def run_simulations_for_model(model, lambda_mapping, Nsize=-1,  small_size=False):
     # Configuration based on the size of the dataset
     if small_size:

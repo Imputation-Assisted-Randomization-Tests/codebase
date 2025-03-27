@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.base import clone
 from lifelines.statistics import multivariate_logrank_test
@@ -112,7 +113,7 @@ def getZsim(Z_sim_templates):
     Z_sim = np.concatenate(Z_sim).reshape(-1, 1)
     return Z_sim
 
-def iart_survival(Z, X_star, T_star, C_star, S, delta,missing_mask, G, L=10000, randomization_design='strata', verbose=False):
+def iart_survival_test(Z, X_star, T_star, C_star, S, delta,missing_mask, G, L=10000, randomization_design='strata', verbose=False):
     """
     iArt framework for survival data using the Wilcoxon-Prentice test statistic.
     """

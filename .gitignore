@@ -7,3 +7,4 @@
 output/Simulation
 output/Simulation0.25Missing
 output/ConfidenceRegions
+.iart_env/*

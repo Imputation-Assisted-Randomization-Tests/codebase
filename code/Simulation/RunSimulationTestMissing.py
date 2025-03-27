@@ -20,7 +20,6 @@ task_id = 1
 max_iter = 3
 Iter = 10000
 
-
 def run_simulations_for_model(model, lambda_mapping, Nsize=-1,  small_size=False):
     # Configuration based on the size of the dataset
     if small_size:
@@ -48,8 +47,8 @@ def run_simulation(*,Nsize, filepath,beta_coef,  Missing_lambda, model = 0,  sma
     Y = np.ma.masked_array(Y, mask=M)
     Y = Y.filled(np.nan)
 
-    reject, p_values = test_missing(Z=Z, X=X, Y=Y, S=S, G=Iter, verbose=verbose, filepath=filepath, beta_coef=beta_coef, task_id=task_id)
-    values_testmissing = [ *p_values, reject ]
+    reject, p_values = test_missing(Z=Z, S=S,  verbose=verbose, M=M, L=Iter)
+    values_testmissing = [ p_values, reject ]
 
     os.makedirs("%s/%f"%(filepath,beta_coef), exist_ok=True)
     np.save('%s/%f/p_values_TestMissing_%d.npy' % (filepath, beta_coef, task_id), values_testmissing)

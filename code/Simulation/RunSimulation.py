@@ -18,9 +18,7 @@ task_id = 1
 
 # Set the default values
 max_iter = 3
-Iter = 10000
-
-
+Iter = 1
 
 def run_simulations_for_model(model, lambda_mapping, Nsize=-1,  small_size=False, multiple=False):
     # Configuration based on the size of the dataset
@@ -35,7 +33,6 @@ def run_simulations_for_model(model, lambda_mapping, Nsize=-1,  small_size=False
             {"filepath": f"../../output/Simulation/HPC_power_{Nsize}_model{model}"},
         ]
         
-
     for coef, Missing_lambda in lambda_mapping.items():
         for config in configs:
             run_simulation(Nsize=Nsize, filepath = config['filepath'], beta_coef = coef, Missing_lambda = Missing_lambda, small_size = small_size, model = model, multiple=multiple)

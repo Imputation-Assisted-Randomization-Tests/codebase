@@ -8,14 +8,13 @@ import xgboost as xgb
 import pandas as pd
 from sklearn.base import BaseEstimator, ClassifierMixin
 import numpy as np
-import iArt_survival 
-
+from iArt_survival import iart_survival_test
 # Do not change this parameter
 beta_coef = None
 task_id = 1
 
 # Set the default values
-max_iter = 1
+Iter = 10000
 class AlwaysZeroModel(BaseEstimator, ClassifierMixin):
     """
     A scikit-learn compatible model that always outputs 0 for any input.
@@ -83,19 +82,19 @@ def run(Nsize, filepath, verbose=1, small_size = True):
     T_masked = np.where(M_delta == 1, 10, T)
     C_masked = np.where(M_delta == 1, 10, C)
 
-    values_oracle= iArt_survival.imputation_reimputation_survival(Z=Z,X_star=X,T_star = T_masked,C_star=C_masked,delta=delta,missing_mask=M_delta,  S=S, L=Iter, G = None,verbose=verbose)
+    values_oracle= iart_survival_test(Z=Z,X_star=X,T_star = T_masked,C_star=C_masked,delta=delta,missing_mask=M_delta,  S=S, L=Iter, G = None,verbose=verbose)
     # Append p-values to corresponding lists
 
     delta_masked = np.where(M_delta == 1, np.nan, delta)
 
-    values_median = iArt_survival.imputation_reimputation_survival(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S,delta=delta_masked,missing_mask=M_delta, G=AlwaysZeroModel(), L=Iter, verbose=verbose)
+    values_median = iart_survival_test(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S,delta=delta_masked,missing_mask=M_delta, G=AlwaysZeroModel(), L=Iter, verbose=verbose)
 
-    values_LR = iArt_survival.imputation_reimputation_survival(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S, delta=delta_masked,missing_mask=M_delta, G=linear_model.LogisticRegression(), L=Iter, verbose=verbose)
+    values_LR = iart_survival_test(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S, delta=delta_masked,missing_mask=M_delta, G=linear_model.LogisticRegression(), L=Iter, verbose=verbose)
 
     if small_size == True:
-        values_xgboost = iArt_survival.imputation_reimputation_survival(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S,delta=delta_masked,missing_mask=M_delta,  G=xgb.XGBClassifier(), L=Iter, verbose=verbose)
+        values_xgboost = iart_survival_test(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S,delta=delta_masked,missing_mask=M_delta,  G=xgb.XGBClassifier(), L=Iter, verbose=verbose)
     else:
-        values_lightgbm = iArt_survival.imputation_reimputation_survival(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S,delta=delta_masked,missing_mask=M_delta,  G=lgb.LGBMClassifier(), L=Iter, verbose=verbose)
+        values_lightgbm = iart_survival_test(Z=Z, X_star=X, T_star=T_masked, C_star=C_masked, S=S,delta=delta_masked,missing_mask=M_delta,  G=lgb.LGBMClassifier(), L=Iter, verbose=verbose)
 
 
     os.makedirs("%s/%f"%(filepath,beta_coef), exist_ok=True)
@@ -119,18 +118,18 @@ if __name__ == '__main__':
 
     for coef in np.arange(0.0,0.42,0.07):
         beta_coef = coef
-        run(1000, filepath = "..output/Survival/HPC_power_1000_survival", small_size=False)
+        run(1000, filepath = "../../output/Survival/HPC_power_1000_survival", small_size=False)
 
     for coef in np.arange(0,1.5,0.25):
         beta_coef = coef
-        run(50, filepath = "..output/Survival/HPC_power_50_survival",small_size=True)
+        run(50, filepath = "../../output/Survival/HPC_power_50_survival",small_size=True)
     
     for coef in np.arange(0.0,0.24,0.04):
         beta_coef = coef
-        run(2000, filepath = "..output/Survival/HPC_power_2000_survival", small_size=False)
+        run(2000, filepath = "../../output/Survival/HPC_power_2000_survival", small_size=False)
 
     for coef in np.arange(0,0.9,0.15):
         beta_coef = coef
-        run(200, filepath = "..output/Survival/HPC_power_200_survival",small_size=True)
+        run(200, filepath = "../../output/Survival/HPC_power_200_survival",small_size=True)
 
 

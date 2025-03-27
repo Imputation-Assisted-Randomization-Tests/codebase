@@ -1,6 +1,6 @@
 # Application Guide
 
-This document provides instructions on how to run the Python scripts in the `YourLocationOfTheFolder/Code/Application` directory for the WFHS dataset analysis.
+This document provides instructions on how to run the Python scripts in the `YourLocationOfTheFolder/code/application` directory for the WFHS dataset analysis.
 
 ## Directory Structure
 
@@ -8,7 +8,7 @@ This document provides instructions on how to run the Python scripts in the `You
 - `iArt.py`: Imputation-Assisted Randomization Tests (iArt).
 - `ConfidenceRegions.py`: Computes confidence regions.
 - `AggregateResultsForConfidenceRegions.py`: Aggregates confidence regions results.
-- `Output/`: Directory where all outputs will be saved.
+- `output/`: Directory where all outputs will be saved.
 
 ## Running the Scripts
 
@@ -18,7 +18,7 @@ To run the main analysis, navigate to the current folder and execute the followi
 ```
 python Main.py
 ```
-This will generate a file `p_values.txt` in the `Output` folder. It will contain all the p-values for Median Imputation, Algo 1 (Linear), Algo 1 (Boosting), Algo 2 (Linear), and Algo 2 (Boosting) for the WFHS dataset.
+This will generate a file `p_values.txt` in the `output` folder. It will contain all the p-values for Median Imputation, Algo 1 (Linear), Algo 1 (Boosting), Algo 2 (Linear), and Algo 2 (Boosting) for the WFHS dataset.
 
 
 ### Confidence Regions
@@ -33,7 +33,7 @@ The `<job_array_index>` must be an integer that corresponds to the specific job 
 
 #### Output Files
 
-The results from this script will be saved in the `Output/ConfidenceRegions` directory. Each filename, such as `test_lightgbmcovariateadjustment_-0.002501250625313034.npy`, indicates the test result for a LightGBM model with the corresponding beta value. The file contains:
+The results from this script will be saved in the `output/ConfidenceRegions` directory. Each filename, such as `test_lightgbmcovariateadjustment_-0.002501250625313034.npy`, indicates the test result for a LightGBM model with the corresponding beta value. The file contains:
 
 - **Beta**: This is the estimated value of the parameter from the model.
 - **Reject**: This boolean indicates whether the null hypothesis for the beta value was rejected.
